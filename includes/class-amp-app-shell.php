@@ -260,10 +260,13 @@ class AMP_App_Shell {
 		$dom             = Document::fromHtml( $response );
 		$content_element = $dom->getElementById( self::CONTENT_ELEMENT_ID );
 
-		if ( ! $content_element ) {
-			status_header( 500 );
-			return esc_html__( 'Unable to locate CONTENT_ELEMENT_ID.', 'amp-app-shell' );
-		}
+		// This code returns too early and doesn't allow a redirect to take place
+		// TODO: Find out if we can detect if a redirect can happen and conditionally run
+		// TODO: Or move this to later in the process
+		// if ( ! $content_element ) {
+		// 	status_header( 500 );
+		// 	return esc_html__( 'Unable to locate CONTENT_ELEMENT_ID.', 'amp-app-shell' );
+		// }
 
 		if ( $is_late ) {
 			self::sanitize_styles_for_shadow_dom( $dom );
